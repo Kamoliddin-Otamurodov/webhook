@@ -1,6 +1,16 @@
+from dotenv import load_dotenv
+import os
+from telegram import Bot, Update
+from telegram.ext import Dispatcher, CommandHandler
+import handlers
 from flask import Flask, request
 
 
+load_dotenv()
+TOKEN = os.environ.get('TOKEN')
+
+bot = Bot(TOKEN)
+dp = Dispatcher(bot, None, workers=0)
 app = Flask(__name__)
 
 
@@ -11,7 +21,12 @@ def webhook():
 
     if request.method == 'POST':
         body = request.get_json()
-        print(body)
+        
+        update = Update.de_json(update, bot)
+
+        dp.add_handler(CommandHandler(['start', 'boshlash'], handlers.start))
+
+        dp.process_update(update)
 
         return {'message': 'ok'}
 
