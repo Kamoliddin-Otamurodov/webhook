@@ -4,6 +4,7 @@ import os
 
 load_dotenv()
 TOKEN = os.environ.get('TOKEN')
+URL = os.environ.get('URL')
 
 bot = Bot(token=TOKEN)
 
@@ -16,7 +17,6 @@ def delete():
 
 
 def set():
-    url = 'https://backend23g.pythonanywhere.com/webhook'
-    print(bot.set_webhook(url=url))
+    print(bot.set_webhook(url=URL))
 
 set()
