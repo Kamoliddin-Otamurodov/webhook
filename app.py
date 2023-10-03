@@ -22,7 +22,7 @@ def webhook():
     if request.method == 'POST':
         body = request.get_json()
         
-        update = Update.de_json(update, bot)
+        update = Update.de_json(body, bot)
 
         dp.add_handler(CommandHandler(['start', 'boshlash'], handlers.start))
 
